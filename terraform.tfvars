@@ -1,5 +1,0 @@
-ami_id     = "ami-0b75f9e5c129e5242"
-key_name   = "tenable-test"
-subnet_id1 = "subnet-0b2eebe11d5997b8e"
-subnet_id2 = "subnet-0c52d291f1f41c0f0"
-subnet_id3 = "subnet-0ed5d34e2b4f09096"
