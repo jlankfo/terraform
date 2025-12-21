@@ -36,9 +36,11 @@ jobs:
           terraform_version: 1.5.7
 
       - name: Terraform Init
+        working-directory: dev
         run: terraform init
 
       - name: Terraform Plan
+        working-directory: dev
         run: terraform plan -out=tfplan
 
       - name: Upload plan artifact
@@ -75,10 +77,13 @@ jobs:
           aws-region: us-east-2
 
       - name: Terraform Init
+        working-directory: dev
         run: terraform init
 
       - name: Terraform Apply
+        working-directory: dev
         run: terraform apply tfplan
+
 
 
 
