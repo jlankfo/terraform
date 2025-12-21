@@ -30,6 +30,10 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::363934772033:role/gh-oidc-role
           aws-region: us-east-2
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.7
 
       - name: Terraform Init
         run: terraform init
@@ -75,5 +79,6 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply tfplan
+
 
 
