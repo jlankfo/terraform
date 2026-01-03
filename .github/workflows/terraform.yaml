@@ -18,19 +18,16 @@ jobs:
   plan:
     name: Terraform Plan
     runs-on: ubuntu-latest
-    if: github.event_name != 'workflow_dispatch'
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-  
-      - name: Configure AWS credentials via OIDC
-        uses: aws-actions/configure-aws-credentials@v4
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::363934772033:role/gh-oidc-role
           aws-region: us-east-2
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.5.7
 
@@ -51,29 +48,26 @@ jobs:
   apply:
     name: Terraform Apply (Manual)
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'
+    needs: plan
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.confirm == 'yes'
 
     steps:
-      - name: Validate confirmation
-        run: |
-          if [ "${{ github.event.inputs.confirm }}" != "yes" ]; then
-            echo "Confirmation failed. You must type yes."
-            exit 1
-          fi
-
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Download plan artifact
         uses: actions/download-artifact@v4
         with:
           name: terraform-plan
+          path: dev
 
-      - name: Configure AWS credentials via OIDC
-        uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::363934772033:role/gh-oidc-role
           aws-region: us-east-2
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.7
 
       - name: Terraform Init
         working-directory: dev
@@ -82,11 +76,3 @@ jobs:
       - name: Terraform Apply
         working-directory: dev
         run: terraform apply tfplan
-
-
-
-
-
-
-
-
