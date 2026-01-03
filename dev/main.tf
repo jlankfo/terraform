@@ -25,8 +25,8 @@ module "xyz_instance" {
   security_group_use_name_prefix = false
   security_group_ingress_rules = {
     rule1_inbound = {
-      from_port = 22
-      to_port   = 22
+      from_port = 23
+      to_port   = 23
       protocol  = "ssh"
       cidr_ipv4 = "192.0.2.0/24"
     }
@@ -68,8 +68,8 @@ module "xyz_instance2" {
   security_group_use_name_prefix = false
   security_group_ingress_rules = {
     rule1_inbound = {
-      from_port = 22
-      to_port   = 22
+      from_port = 23
+      to_port   = 23
       protocol  = "ssh"
       cidr_ipv4 = "192.0.2.0/24"
     }
