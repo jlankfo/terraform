@@ -1,7 +1,6 @@
 name: Terraform CI/CD
 
 on:
-  pull_request:
   push:
     branches: [ master ]
   workflow_dispatch:
@@ -83,6 +82,7 @@ jobs:
       - name: Terraform Apply
         working-directory: dev
         run: terraform apply tfplan
+
 
 
 
