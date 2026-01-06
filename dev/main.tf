@@ -25,9 +25,9 @@ module "xyz_instance" {
   security_group_use_name_prefix = false
   security_group_ingress_rules = {
     rule1_inbound = {
-      from_port = 22
-      to_port   = 22
-      protocol  = "ssh"
+      from_port = 3389
+      to_port   = 3389
+      protocol  = "rdp"
       cidr_ipv4 = "192.0.2.0/24"
     }
   }
